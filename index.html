@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>socket-io</title>
+    <style>
+      p{
+        cursor: pointer;
+        border-radius:10px;
+      }
+    </style>
+    <script src="http://localhost:8004/socket.io/socket.io.js"></script>
+    
+</head>
+<body> 
+    <input type="text" id="message">
+    <button id="send_btn">发送</button>
+    <div id="show"></div>
+    <script>
+     var socket=io.connect("ws://localhost:3001"); 
+     var send_btn = document.getElementById("send_btn");
+     var show = document.getElementById("show");
+    
+  socket.on('news', function (data) {
+    console.log(data);
+    //socket.emit('mes', 456);
+    show.innerHTML = data
+  });
+     send_btn.onclick=function(){
+        var txt = document.getElementById("message").value;
+        socket.emit("messages","clien:"+txt)//发送数据
+        
+     }
+    
+    // socket.on('news', function (data) {
+    // console.log(data);
+    // socket.emit('message', );
+  // }); 
+     </script>
+</body>
+</html>
