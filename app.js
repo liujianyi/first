@@ -22,8 +22,11 @@ function handler (req, res) {
 }
 
 ws.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
+  
+  socket.on('messages', function (data) {
     console.log(data);
+    var datas=data.replace(/clien:/,"server:")
+    socket.emit('news', datas);
   });
 });
+   
